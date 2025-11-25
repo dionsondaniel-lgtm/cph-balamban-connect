@@ -1,83 +1,99 @@
-/* Landing.css */
+/* ================= Landing Container ================= */
 .landing-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(160deg, #1e3a8a, #3b82f6);
+  background: linear-gradient(180deg, #0a0a14 0%, #1c1c2e 100%);
   color: #fff;
-  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  gap: 40px;
 }
 
+/* ================= Landing Slides ================= */
 .landing-slide {
+  text-align: center;
+  background: rgba(20, 20, 40, 0.85);
+  padding: 40px 30px;
+  border-radius: 20px;
   width: 90%;
   max-width: 600px;
-  margin: 20px 0;
-  padding: 40px 30px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  text-align: center;
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.landing-slide h1, .landing-slide h2 {
+.landing-slide:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+}
+
+/* Slide Variants */
+.landing-slide.secondary {
+  background: rgba(10, 20, 50, 0.85);
+}
+
+.landing-slide.tertiary {
+  background: rgba(30, 10, 50, 0.85);
+}
+
+/* Headings */
+.landing-slide h1,
+.landing-slide h2 {
+  color: #0ff;
   margin-bottom: 15px;
 }
 
-.landing-slide p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 25px;
+.landing-slide h1 {
+  font-size: 2rem;
 }
 
+.landing-slide h2 {
+  font-size: 1.8rem;
+}
+
+/* Paragraphs */
+.landing-slide p {
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* ================= Buttons ================= */
 .btn-primary {
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  background: linear-gradient(135deg, #0ff, #06f);
+  color: #000;
+  font-weight: bold;
+  padding: 12px 25px;
   border: none;
-  border-radius: 15px;
+  border-radius: 12px;
   cursor: pointer;
-  color: #fff;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(59,130,246,0.5);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #0ff;
 }
 
-/* Slide animations */
-.landing-slide:nth-child(1) { animation: slideIn 1s ease forwards; }
-.landing-slide:nth-child(2) { animation: slideIn 1.3s ease forwards; }
-.landing-slide:nth-child(3) { animation: slideIn 1.6s ease forwards; }
-
-@keyframes slideIn {
-  0% { transform: translateY(50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+/* ================= Mobile Responsiveness ================= */
+@media (max-width: 768px) {
   .landing-slide {
-    padding: 25px 15px;
+    padding: 30px 20px;
   }
-  .btn-primary {
-    width: 100%;
+
+  .landing-slide h1 {
+    font-size: 1.6rem;
   }
-}
 
-/* --------------------------------------- */
-/* Modern Elegant h2 (Secondary + Tertiary) */
-/* --------------------------------------- */
+  .landing-slide h2 {
+    font-size: 1.4rem;
+  }
 
-.landing-slide.secondary h2,
-.landing-slide.tertiary h2 {
-  color: #f8fafc;              /* clean white */
-  font-weight: 300;            /* elegant thin font */
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 6px rgba(255,255,255,0.18);
+  .landing-slide p {
+    font-size: 0.95rem;
+  }
 }

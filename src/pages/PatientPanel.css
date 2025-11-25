@@ -1,35 +1,30 @@
-/* ---------- GLOBAL ---------- */
+/* ================= Patient Panel Base ================= */
 .patient-panel {
-  padding: 15px;
-  max-width: 750px;
-  margin: auto;
-  font-family: "Inter", sans-serif;
-  color: #2a2a2a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  padding: 20px;
+  background: linear-gradient(180deg, #0a0a14 0%, #1c1c2e 100%);
+  min-height: 100vh;
 }
 
-h2, h3, h4 {
-  margin: 0;
-}
-
-/* ---------- HEADER CARD ---------- */
-.header-card {
-  background: #ffffff;
-  padding: 18px 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+/* ================= Header ================= */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.welcome-sub {
-  color: #6d6d6d;
-  font-size: 14px;
-  margin-top: 5px;
+.header h2 {
+  margin: 0;
+  font-weight: 600;
+  color: #0ff;
 }
 
-/* ---------- NOTIFICATION ---------- */
-.notif-container {
+/* ================= Notification Bell ================= */
+.notif-bell-container {
   position: relative;
 }
 
@@ -37,253 +32,297 @@ h2, h3, h4 {
   cursor: pointer;
   font-size: 24px;
   position: relative;
-  transition: 0.2s;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .notif-bell:hover {
-  transform: scale(1.1);
+  color: #0ff;
+  transform: scale(1.2);
 }
 
-.notif-badge {
+.notif-count {
   position: absolute;
-  top: -4px;
-  right: -8px;
-  background: #ff4747;
-  color: #fff;
-  padding: 3px 6px;
+  top: -5px;
+  right: -5px;
+  background: #0ff;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
   border-radius: 50%;
-  font-size: 10px;
 }
 
+/* ================= Notification Dropdown ================= */
 .notif-dropdown {
   position: absolute;
   right: 0;
-  width: 240px;
-  background: #fff;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-  border-radius: 12px;
-  margin-top: 10px;
-  padding: 10px;
+  top: 35px;
+  background: rgba(20, 20, 40, 0.95);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 10px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
   z-index: 100;
+  padding: 10px 0;
 }
 
-.notif-empty {
-  text-align: center;
-  padding: 15px 0;
-  color: #777;
+.scrollable-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-dropdown::-webkit-scrollbar-thumb {
+  background: #0ff;
+  border-radius: 3px;
+}
+
+.scrollable-dropdown::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .notif-item {
-  padding: 10px;
-  border-bottom: 1px solid #f2f2f2;
+  padding: 8px 15px;
   cursor: pointer;
-  transition: 0.2s;
-}
-.notif-item:hover {
-  background: #f8fafc;
+  transition: all 0.2s ease;
 }
 
-.notif-user-row {
+.notif-item:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.notif-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .notif-name {
   font-weight: 600;
 }
 
-.notif-dot {
-  background: #ff4747;
-  padding: 2px 6px;
-  border-radius: 12px;
-  color: #fff;
+.notif-unread-dot {
+  background: #0ff;
+  color: #000;
   font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
 }
 
-.notif-message {
+.notif-msg {
   font-size: 13px;
-  color: #555;
-  margin-top: 3px;
+  color: #aaa;
+  margin: 3px 0;
 }
 
-/* ---------- SECTION CARD ---------- */
-.section-card {
-  background: #fff;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+.notif-time {
+  font-size: 10px;
+  color: #666;
+  text-align: right;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.floating-btn {
-  background: #4f7df3;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 30px;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: 0.2s;
-}
-.floating-btn:hover {
-  background: #3f69d4;
-}
-
-/* ---------- APPOINTMENT CARD ---------- */
-.appointment-list {
-  margin-top: 15px;
-}
-
-.appt-card {
-  display: flex;
-  justify-content: space-between;
-  background: #f8fafc;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  align-items: center;
-}
-
-.appt-info h4 {
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.appt-role {
-  font-size: 13px;
+.notif-empty {
+  text-align: center;
+  padding: 20px 0;
   color: #666;
 }
 
-.appt-time {
-  margin-top: 5px;
-  font-size: 13px;
-  color: #444;
-}
-
-.appt-status {
-  margin-top: 7px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.appt-status.pending {
-  background: #fff6d5;
-  color: #c29600;
-}
-
-.appt-status.approved {
-  background: #d9ffe0;
-  color: #1e8f3a;
-}
-
-.chat-btn {
-  background: #4f7df3;
+/* ================= Add Appointment Button ================= */
+.add-btn {
+  background: linear-gradient(135deg, #0ff, #06f);
   border: none;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 10px;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 12px;
   cursor: pointer;
-}
-.chat-btn:hover {
-  background: #3f69d4;
+  margin-bottom: 15px;
+  transition: all 0.2s ease;
 }
 
-/* ---------- MODAL ---------- */
+.add-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #0ff;
+}
+
+/* ================= Appointments Table ================= */
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.appointments-table th {
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.action-btn.message {
+  background: linear-gradient(135deg, #0ff, #06f);
+  color: #000;
+}
+
+.action-btn.message:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* ================= Modal ================= */
 .modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 20, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 200;
+  z-index: 1000;
 }
 
-.modal {
-  background: #fff;
+.modal-card {
+  background: rgba(20, 20, 40, 0.95);
   padding: 25px;
-  width: 90%;
-  max-width: 400px;
   border-radius: 15px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-.label {
-  margin-top: 12px;
-  display: block;
-  font-weight: 600;
-}
-
-.staff-scroll {
-  margin-top: 10px;
-  max-height: 160px;
-  overflow-y: auto;
-}
-
-.staff-card {
-  padding: 10px;
-  background: #f7f7f7;
-  margin-bottom: 8px;
+.modal-card input,
+.modal-card .search-input {
+  padding: 10px 12px;
   border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.staff-card:hover {
-  background: #ececec;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-.staff-card.active {
-  background: #4f7df3;
-  color: white;
+.modal-card input:focus,
+.modal-card .search-input:focus {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.staff-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 5px 0;
+}
+
+.staff-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.staff-list::-webkit-scrollbar-thumb {
+  background: #0ff;
+  border-radius: 3px;
+}
+
+.staff-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.staff-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.staff-item:hover,
+.staff-item.selected {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.selected-staff-text {
+  font-size: 14px;
+  color: #0ff;
+  margin: 5px 0;
 }
 
 .modal-actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.btn-save {
-  background: #4f7df3;
-  color: white;
-  padding: 10px 18px;
+.save-btn,
+.cancel-btn {
+  padding: 8px 16px;
   border-radius: 10px;
   border: none;
-}
-.btn-cancel {
-  background: #c7c7c7;
-  padding: 10px 18px;
-  border-radius: 10px;
-  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* ---------- MOBILE ---------- */
-@media (max-width: 600px) {
-  .appt-card {
+.save-btn {
+  background: linear-gradient(135deg, #0ff, #06f);
+  color: #000;
+}
+
+.save-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #0ff;
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+/* ================= Mobile Responsiveness ================= */
+@media (max-width: 768px) {
+  .header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 15px;
   }
 
-  .chat-btn {
-    margin-top: 10px;
-    width: 100%;
+  .notif-dropdown {
+    width: 90%;
+    right: 5%;
+  }
+
+  .appointments-table th,
+  .appointments-table td {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+
+  .modal-card {
+    width: 95%;
   }
 }

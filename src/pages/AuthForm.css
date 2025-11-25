@@ -1,71 +1,140 @@
+/* AuthForm.css - Improved readability */
+
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
-  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .auth-card {
-  background: white;
+  background: rgba(20, 20, 30, 0.95);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  width: 100%;
+  border-radius: 16px;
   max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  color: #0ff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
 }
 
 .auth-card h2 {
   text-align: center;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: #333;
+  text-shadow: 0 0 12px #0ff, 0 0 6px #00ffff;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
 }
 
-.auth-form input, .auth-form select {
-  padding: 0.7rem;
+.auth-form input,
+.auth-form select {
+  padding: 0.75rem 1rem;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
+  outline: none;
+  background: rgba(0, 0, 0, 0.6); /* Darker for contrast */
+  color: #00ffff; /* Brighter neon text */
   font-size: 1rem;
+  transition: 0.3s;
+  box-shadow: inset 0 0 6px rgba(0, 255, 255, 0.3);
+  backdrop-filter: blur(4px); /* subtle frosted effect */
+}
+
+.auth-form input::placeholder,
+.auth-form select option {
+  color: rgba(0, 255, 255, 0.6);
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 12px #0ff, 0 0 6px #00ffff;
+  color: #0ff;
 }
 
 .auth-form button {
-  padding: 0.8rem;
+  padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
-  background-color: #6e8efb;
-  color: white;
-  font-size: 1rem;
+  background: linear-gradient(90deg, #00ffff, #00aaff);
+  color: #0a0a0a;
+  font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
 .auth-form button:hover {
-  background-color: #557ce6;
+  background: linear-gradient(90deg, #00aaff, #00ffff);
+  box-shadow: 0 0 20px #0ff, 0 0 25px rgba(0, 255, 255, 0.3);
 }
 
 .role-select {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .toggle-text {
   text-align: center;
-  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #00ffff;
+  text-shadow: 0 0 4px #0ff;
 }
 
 .toggle-text span {
-  color: #6e8efb;
   cursor: pointer;
+  color: #00ffff;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.toggle-text span:hover {
+  color: #0aa;
+  text-shadow: 0 0 5px #0ff;
 }
 
 .message {
   text-align: center;
-  margin-top: 1rem;
-  color: red;
+  color: #ff5555;
+  font-weight: bold;
+  text-shadow: 0 0 6px #ff5555;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-form input,
+  .auth-form select {
+    font-size: 0.95rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .auth-form button {
+    font-size: 1rem;
+  }
 }
