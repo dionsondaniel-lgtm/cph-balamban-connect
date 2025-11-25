@@ -1,0 +1,289 @@
+/* ---------- GLOBAL ---------- */
+.patient-panel {
+  padding: 15px;
+  max-width: 750px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+  color: #2a2a2a;
+}
+
+h2, h3, h4 {
+  margin: 0;
+}
+
+/* ---------- HEADER CARD ---------- */
+.header-card {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-sub {
+  color: #6d6d6d;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ---------- NOTIFICATION ---------- */
+.notif-container {
+  position: relative;
+}
+
+.notif-bell {
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.notif-bell:hover {
+  transform: scale(1.1);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background: #ff4747;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+
+.notif-dropdown {
+  position: absolute;
+  right: 0;
+  width: 240px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  margin-top: 10px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.notif-empty {
+  text-align: center;
+  padding: 15px 0;
+  color: #777;
+}
+
+.notif-item {
+  padding: 10px;
+  border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.notif-item:hover {
+  background: #f8fafc;
+}
+
+.notif-user-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notif-name {
+  font-weight: 600;
+}
+
+.notif-dot {
+  background: #ff4747;
+  padding: 2px 6px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 10px;
+}
+
+.notif-message {
+  font-size: 13px;
+  color: #555;
+  margin-top: 3px;
+}
+
+/* ---------- SECTION CARD ---------- */
+.section-card {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.floating-btn {
+  background: #4f7df3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+.floating-btn:hover {
+  background: #3f69d4;
+}
+
+/* ---------- APPOINTMENT CARD ---------- */
+.appointment-list {
+  margin-top: 15px;
+}
+
+.appt-card {
+  display: flex;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  align-items: center;
+}
+
+.appt-info h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.appt-role {
+  font-size: 13px;
+  color: #666;
+}
+
+.appt-time {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #444;
+}
+
+.appt-status {
+  margin-top: 7px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.appt-status.pending {
+  background: #fff6d5;
+  color: #c29600;
+}
+
+.appt-status.approved {
+  background: #d9ffe0;
+  color: #1e8f3a;
+}
+
+.chat-btn {
+  background: #4f7df3;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.chat-btn:hover {
+  background: #3f69d4;
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modal {
+  background: #fff;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.label {
+  margin-top: 12px;
+  display: block;
+  font-weight: 600;
+}
+
+.staff-scroll {
+  margin-top: 10px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.staff-card {
+  padding: 10px;
+  background: #f7f7f7;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.staff-card:hover {
+  background: #ececec;
+}
+
+.staff-card.active {
+  background: #4f7df3;
+  color: white;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background: #4f7df3;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+}
+.btn-cancel {
+  background: #c7c7c7;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 600px) {
+  .appt-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chat-btn {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

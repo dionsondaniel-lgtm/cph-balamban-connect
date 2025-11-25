@@ -1,0 +1,283 @@
+/* --------------------- StaffPanel.css --------------------- */
+
+.staff-panel {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+  color: #1d1d1d;
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.header h2 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* ---------- Notification Bell ---------- */
+.notif-bell-container {
+  position: relative;
+}
+
+.notif-bell {
+  font-size: 26px;
+  cursor: pointer;
+  position: relative;
+}
+
+.notif-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff3b3b;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.notif-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 260px;
+  max-height: 330px;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  padding: 10px 0;
+  z-index: 20;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.notif-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background 0.25s;
+}
+
+.notif-item:hover {
+  background: #f7f7f7;
+}
+
+.notif-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.notif-name {
+  font-weight: 600;
+}
+
+.notif-unread-dot {
+  background: #ff3b3b;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.notif-msg {
+  color: #5e5e5e;
+  font-size: 14px;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.notif-empty {
+  padding: 15px;
+  text-align: center;
+  color: #777;
+}
+
+/* ---------- Filters ---------- */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar input,
+.search-bar select {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  width: 100%;
+  background: #fafafa;
+}
+
+.refresh-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.refresh-btn:hover {
+  background: #0066d9;
+}
+
+/* ---------- Appointment Table ---------- */
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.appointments-table th {
+  background: #f7f7f7;
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.appointments-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Status colors */
+.status.pending {
+  color: #d98a00;
+  font-weight: 600;
+}
+
+.status.confirmed {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.status.done {
+  color: #2bb744;
+  font-weight: 600;
+}
+
+.status.cancelled {
+  color: #e53030;
+  font-weight: 600;
+}
+
+/* Actions */
+.actions-col {
+  white-space: nowrap;
+}
+
+.action-btn {
+  padding: 6px 10px;
+  margin-right: 6px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.action-btn.view { background: #6c63ff; color: white; }
+.action-btn.confirm { background: #007bff; color: white; }
+.action-btn.cancel { background: #ff5757; color: white; }
+.action-btn.resched { background: #ff8c00; color: white; }
+.action-btn.done { background: #22c55e; color: white; }
+.action-btn.message { background: #4b5563; color: white; }
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Modals ---------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  backdrop-filter: blur(2px);
+}
+
+.modal-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 420px;
+  animation: fadeUp 0.25s ease-out;
+}
+
+.modal-card.wide {
+  max-width: 500px;
+}
+
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.save-btn {
+  background: #22c55e;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.cancel-btn {
+  background: #e63939;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.close-btn {
+  background: #444;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Mobile Responsive ---------- */
+@media (max-width: 760px) {
+  .search-bar { flex-direction: column; }
+  .actions-col { display: flex; flex-wrap: wrap; gap: 6px; }
+  .action-btn { width: 47%; }
+  .appointments-table { font-size: 14px; }
+}

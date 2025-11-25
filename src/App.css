@@ -1,38 +1,174 @@
-.App {
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(160deg, #f0f4f8 0%, #e2e8f0 100%);
+  margin: 0;
+  padding: 0;
+  color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 20px;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Container */
+.container {
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 35px 25px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  text-align: center;
+  backdrop-filter: blur(8px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* User Type Selection */
+.user-select {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.user-select button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 5px 20px rgba(59,130,246,0.25);
+}
+
+.user-select button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.35);
+}
+
+/* Forms */
+.form-container {
+  margin-top: 15px;
+  text-align: left;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+form input {
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.25s ease-in-out;
+  background: #f9fafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59,130,246,0.2);
+  background: #ffffff;
+}
+
+form button {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 5px 20px rgba(59,130,246,0.25);
+}
+
+form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(59,130,246,0.35);
+}
+
+/* Messages */
+.message {
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Toggle Text */
+.toggle-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.toggle-text span {
+  color: #3b82f6;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.toggle-text span:hover {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+/* Landing Page Buttons */
+.landing-buttons .btn-primary {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: #fff;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 5px 20px rgba(59,130,246,0.25);
+}
+
+.landing-buttons .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(59,130,246,0.35);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    margin: 30px 15px;
+    padding: 25px 15px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .user-select {
+    flex-direction: column;
+  }
+
+  .user-select button, .landing-buttons .btn-primary {
+    width: 100%;
+  }
+
+  form input {
+    font-size: 14px;
+  }
+
+  form button {
+    font-size: 15px;
   }
 }

@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+import Landing from "./pages/Landing";
+import AuthForm from "./pages/AuthForm";
+import StaffPanel from "./pages/StaffPanel";
+import PatientPanel from "./pages/PatientPanel";
+import Home from "./pages/Home";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+
+        {/* Public pages */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/auth" element={<AuthForm />} />
+
+        {/* Home (optional redirect logic inside Home page) */}
+        <Route path="/home" element={<Home />} />
+
+        {/* Panels (require profile passed via navigate state) */}
+        <Route path="/staffpanel" element={<StaffPanel />} />
+        <Route path="/patientpanel" element={<PatientPanel />} />
+
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

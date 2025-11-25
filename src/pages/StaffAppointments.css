@@ -1,0 +1,80 @@
+.staff-panel {
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.staff-panel h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #2575fc;
+}
+
+.staff-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.staff-panel th, .staff-panel td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.staff-panel th {
+  background-color: #2575fc;
+  color: white;
+}
+
+.staff-panel tr:hover {
+  background-color: #f2f2f2;
+}
+
+.staff-panel button {
+  margin-right: 0.5rem;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.staff-panel button:hover {
+  opacity: 0.85;
+}
+
+.staff-panel button:nth-child(1) { background-color: #28a745; } /* Confirm */
+.staff-panel button:nth-child(2) { background-color: #dc3545; } /* Cancel */
+.staff-panel button:nth-child(3) { background-color: #ffc107; color: black; } /* Reschedule */
+
+@media (max-width: 600px) {
+  .staff-panel table, .staff-panel thead, .staff-panel tbody, .staff-panel th, .staff-panel td, .staff-panel tr {
+    display: block;
+  }
+  .staff-panel tr {
+    margin-bottom: 1rem;
+  }
+  .staff-panel td {
+    padding-left: 50%;
+    position: relative;
+  }
+  .staff-panel td::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  .staff-panel td:nth-of-type(1)::before { content: "Patient"; }
+  .staff-panel td:nth-of-type(2)::before { content: "Date & Time"; }
+  .staff-panel td:nth-of-type(3)::before { content: "Status"; }
+  .staff-panel td:nth-of-type(4)::before { content: "Actions"; }
+}
