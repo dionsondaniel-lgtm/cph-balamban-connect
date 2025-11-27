@@ -1,328 +1,303 @@
-/* ================= Patient Panel Base ================= */
+/* -------------------------------------- */
+/* PAGE WRAPPER (component only)          */
+/* -------------------------------------- */
 .patient-panel {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-  padding: 20px;
-  background: linear-gradient(180deg, #0a0a14 0%, #1c1c2e 100%);
   min-height: 100vh;
+  padding: 20px;
+
+  /* Cool blue gradient background (scoped) */
+  background: linear-gradient(145deg, #0e2a47, #143d63, #1a4f7f, #4aa8f0);
+  background-size: 300% 300%;
+  animation: pnShift 12s ease infinite;
+
+  color: #ffffff;
+  font-family: "Inter", system-ui, sans-serif;
+
+  /* local blur for inner components */
+  position: relative;
 }
 
-/* ================= Header ================= */
-.header {
+@keyframes pnShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* -------------------------------------- */
+/* HEADER                                 */
+/* -------------------------------------- */
+.patient-panel .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.header h2 {
-  margin: 0;
+.patient-panel .header h2 {
   font-weight: 600;
-  color: #0ff;
+  letter-spacing: 0.5px;
 }
 
-/* ================= Notification Bell ================= */
-.notif-bell-container {
+/* -------------------------------------- */
+/* NOTIFICATION BELL                      */
+/* -------------------------------------- */
+.patient-panel .notif-bell-container {
   position: relative;
 }
 
-.notif-bell {
+.patient-panel .notif-bell {
+  font-size: 26px;
   cursor: pointer;
-  font-size: 24px;
-  position: relative;
-  padding: 5px 10px;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  padding: 6px 10px;
+
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+
+  transition: 0.2s;
 }
 
-.notif-bell:hover {
-  color: #0ff;
-  transform: scale(1.2);
+.patient-panel .notif-bell:hover {
+  transform: scale(1.06);
+  background: rgba(255,255,255,0.25);
 }
 
-.notif-count {
+.patient-panel .notif-count {
+  background: #ff375f;
+  color: #fff;
+  padding: 2px 7px;
+  font-size: 11px;
+  border-radius: 12px;
+
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #0ff;
-  color: #000;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
+  top: -6px;
+  right: -6px;
 }
 
-/* ================= Notification Dropdown ================= */
-.notif-dropdown {
+/* -------------------------------------- */
+/* DROPDOWN                               */
+/* -------------------------------------- */
+.patient-panel .notif-dropdown {
   position: absolute;
   right: 0;
-  top: 35px;
-  background: rgba(20, 20, 40, 0.95);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  border-radius: 10px;
-  width: 300px;
-  max-height: 400px;
+  top: 45px;
+  width: 270px;
+  max-height: 350px;
+
   overflow-y: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  z-index: 100;
-  padding: 10px 0;
+  padding: 12px;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 16px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  animation: pnFade 0.25s ease;
 }
 
-.scrollable-dropdown::-webkit-scrollbar {
-  width: 6px;
+@keyframes pnFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.scrollable-dropdown::-webkit-scrollbar-thumb {
-  background: #0ff;
-  border-radius: 3px;
+.patient-panel .notif-empty {
+  text-align: center;
+  opacity: 0.8;
 }
 
-.scrollable-dropdown::-webkit-scrollbar-track {
-  background: transparent;
-}
+.patient-panel .notif-item {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 14px;
 
-.notif-item {
-  padding: 8px 15px;
+  background: rgba(255,255,255,0.15);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.25s;
 }
 
-.notif-item:hover {
-  background: rgba(0, 255, 255, 0.1);
+.patient-panel .notif-item:hover {
+  background: rgba(255,255,255,0.28);
 }
 
-.notif-top {
+.patient-panel .notif-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.notif-name {
+.patient-panel .notif-name {
   font-weight: 600;
 }
 
-.notif-unread-dot {
-  background: #0ff;
-  color: #000;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 50%;
+.patient-panel .notif-unread-dot {
+  background: #ff375f;
+  padding: 2px 6px;
+  border-radius: 14px;
+  font-size: 11px;
 }
 
-.notif-msg {
-  font-size: 13px;
-  color: #aaa;
-  margin: 3px 0;
+.patient-panel .notif-msg {
+  opacity: 0.85;
+  font-size: 14px;
+  margin-top: 4px;
 }
 
-.notif-time {
-  font-size: 10px;
-  color: #666;
+.patient-panel .notif-time {
+  font-size: 12px;
+  opacity: 0.7;
   text-align: right;
+  margin-top: 3px;
 }
 
-.notif-empty {
-  text-align: center;
-  padding: 20px 0;
-  color: #666;
-}
-
-/* ================= Add Appointment Button ================= */
-.add-btn {
-  background: linear-gradient(135deg, #0ff, #06f);
+/* -------------------------------------- */
+/* BUTTONS                                */
+/* -------------------------------------- */
+.patient-panel .add-btn,
+.patient-panel .action-btn,
+.patient-panel .save-btn,
+.patient-panel .cancel-btn {
+  cursor: pointer;
   border: none;
-  color: #000;
-  font-weight: bold;
-  padding: 10px 18px;
+  padding: 11px 16px;
+  font-size: 15px;
   border-radius: 12px;
-  cursor: pointer;
-  margin-bottom: 15px;
-  transition: all 0.2s ease;
+
+  color: #fff;
+  font-weight: 600;
+
+  background: linear-gradient(135deg, #57c0ff, #296dff);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+
+  transition: 0.25s;
 }
 
-.add-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #0ff;
+.patient-panel .add-btn:hover,
+.patient-panel .action-btn:hover,
+.patient-panel .save-btn:hover,
+.patient-panel .cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
 }
 
-/* ================= Appointments Table ================= */
-.appointments-table {
+.patient-panel .action-btn.message {
+  background: linear-gradient(135deg, #79f8cd, #31c89a);
+}
+
+.patient-panel .cancel-btn {
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* -------------------------------------- */
+/* TABLE                                  */
+/* -------------------------------------- */
+.patient-panel .appointments-table {
   width: 100%;
+  margin-top: 15px;
   border-collapse: collapse;
-  margin-top: 10px;
+
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.appointments-table th,
-.appointments-table td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.patient-panel .appointments-table th,
+.patient-panel .appointments-table td {
+  padding: 12px;
 }
 
-.appointments-table th {
-  background: rgba(0, 255, 255, 0.05);
+.patient-panel .appointments-table th {
+  background: rgba(255,255,255,0.22);
+  font-weight: 600;
 }
 
-.action-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s ease;
+.patient-panel .appointments-table tr:nth-child(even) {
+  background: rgba(255,255,255,0.10);
 }
 
-.action-btn.message {
-  background: linear-gradient(135deg, #0ff, #06f);
-  color: #000;
-}
-
-.action-btn.message:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #0ff;
-}
-
-/* ================= Modal ================= */
-.modal-overlay {
+/* -------------------------------------- */
+/* MODAL                                  */
+/* -------------------------------------- */
+.patient-panel .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 20, 0.85);
+  inset: 0;
+
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+
+  padding: 20px;
 }
 
-.modal-card {
-  background: rgba(20, 20, 40, 0.95);
-  padding: 25px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.patient-panel .modal-card {
+  width: 95%;
+  max-width: 420px;
+
+  padding: 22px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.25);
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+
+  animation: pnScale 0.28s ease;
 }
 
-.modal-card input,
-.modal-card .search-input {
-  padding: 10px 12px;
-  border-radius: 12px;
+@keyframes pnScale {
+  from { opacity: 0; transform: scale(0.86); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.patient-panel .search-input,
+.patient-panel input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+
   border: none;
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.2s ease;
-}
-
-.modal-card input:focus,
-.modal-card .search-input:focus {
-  background: rgba(0, 255, 255, 0.1);
-}
-
-.staff-list {
-  max-height: 150px;
-  overflow-y: auto;
-  margin: 5px 0;
-}
-
-.staff-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.staff-list::-webkit-scrollbar-thumb {
-  background: #0ff;
-  border-radius: 3px;
-}
-
-.staff-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.staff-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 10px;
   border-radius: 10px;
+
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+
+  color: #fff;
+}
+
+.patient-panel .staff-list {
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.patient-panel .staff-item {
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+
   cursor: pointer;
-  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.18);
+  transition: 0.2s;
 }
 
-.staff-item:hover,
-.staff-item.selected {
-  background: rgba(0, 255, 255, 0.1);
+.patient-panel .staff-item:hover {
+  background: rgba(255,255,255,0.30);
 }
 
-.selected-staff-text {
-  font-size: 14px;
-  color: #0ff;
-  margin: 5px 0;
+.patient-panel .staff-item.selected {
+  background: rgba(75,170,255,0.4);
+  border: 1px solid rgba(255,255,255,0.35);
 }
 
-.modal-actions {
+.patient-panel .modal-actions {
+  margin-top: 18px;
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.save-btn,
-.cancel-btn {
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.save-btn {
-  background: linear-gradient(135deg, #0ff, #06f);
-  color: #000;
-}
-
-.save-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #0ff;
-}
-
-.cancel-btn {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-}
-
-.cancel-btn:hover {
-  background: rgba(0, 255, 255, 0.1);
-}
-
-/* ================= Mobile Responsiveness ================= */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .notif-dropdown {
-    width: 90%;
-    right: 5%;
-  }
-
-  .appointments-table th,
-  .appointments-table td {
-    font-size: 12px;
-    padding: 8px 6px;
-  }
-
-  .modal-card {
-    width: 95%;
-  }
+  gap: 12px;
 }

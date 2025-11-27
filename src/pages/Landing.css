@@ -1,96 +1,114 @@
-/* ================= Landing Container ================= */
+/* Landing.css */
+
+/* Container with cool blue gradient background */
 .landing-container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0a0a14 0%, #1c1c2e 100%);
-  color: #fff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
-  gap: 40px;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 2rem;
+  gap: 2rem;
 }
 
-/* ================= Landing Slides ================= */
+/* Glassmorphism card style for slides */
 .landing-slide {
-  text-align: center;
-  background: rgba(20, 20, 40, 0.85);
-  padding: 40px 30px;
-  border-radius: 20px;
-  width: 90%;
+  width: 100%;
   max-width: 600px;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .landing-slide:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
-}
-
-/* Slide Variants */
-.landing-slide.secondary {
-  background: rgba(10, 20, 50, 0.85);
-}
-
-.landing-slide.tertiary {
-  background: rgba(30, 10, 50, 0.85);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* Headings */
 .landing-slide h1,
 .landing-slide h2 {
-  color: #0ff;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.landing-slide h1 {
-  font-size: 2rem;
-}
-
-.landing-slide h2 {
-  font-size: 1.8rem;
-}
-
-/* Paragraphs */
 .landing-slide p {
-  color: #aaa;
-  font-size: 1rem;
-  margin-bottom: 25px;
-  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-/* ================= Buttons ================= */
+/* Button styling */
 .btn-primary {
-  background: linear-gradient(135deg, #0ff, #06f);
-  color: #000;
-  font-weight: bold;
-  padding: 12px 25px;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 12px;
-  cursor: pointer;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
   transform: scale(1.05);
-  box-shadow: 0 0 15px #0ff;
 }
 
-/* ================= Mobile Responsiveness ================= */
+/* Variations for secondary and tertiary slides */
+.landing-slide.secondary {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.landing-slide.tertiary {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
+  .landing-container {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
   .landing-slide {
-    padding: 30px 20px;
+    padding: 1.5rem;
   }
 
-  .landing-slide h1 {
-    font-size: 1.6rem;
-  }
-
+  .landing-slide h1,
   .landing-slide h2 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+
+  .landing-slide p {
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-slide {
+    padding: 1rem;
+  }
+
+  .landing-slide h1,
+  .landing-slide h2 {
+    font-size: 1.25rem;
   }
 
   .landing-slide p {

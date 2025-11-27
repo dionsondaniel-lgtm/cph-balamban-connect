@@ -1,318 +1,389 @@
-/* ================= Staff Panel Base ================= */
+/* ------------------------------------------------ */
+/* STAFF PANEL WRAPPER — scoped only                */
+/* ------------------------------------------------ */
 .staff-panel {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-  padding: 20px;
-  background: linear-gradient(180deg, #0a0a14 0%, #1c1c2e 100%);
   min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(155deg, #1e2a52, #283b79, #3a4eb1, #49c2da);
+  background-size: 300% 300%;
+  animation: spBG 13s ease infinite;
+  color: #fff;
+  font-family: "Inter", sans-serif;
 }
 
-/* ================= Header ================= */
-.header {
+@keyframes spBG {
+  0% { background-position: 10% 50%; }
+  50% { background-position: 90% 50%; }
+  100% { background-position: 10% 50%; }
+}
+
+/* ------------------------------------------------ */
+/* HEADER                                           */
+/* ------------------------------------------------ */
+.staff-panel .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.header h2 {
-  margin: 0;
+.staff-panel .header h2 {
   font-weight: 600;
-  color: #0ff;
+  letter-spacing: 0.7px;
 }
 
-/* ================= Notification Bell ================= */
-.notif-bell-container {
+/* ------------------------------------------------ */
+/* NOTIFICATION BELL                                */
+/* ------------------------------------------------ */
+.staff-panel .notif-bell-container {
   position: relative;
 }
 
-.notif-bell {
+.staff-panel .notif-bell {
+  font-size: 26px;
+  padding: 6px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(12px);
   cursor: pointer;
-  font-size: 24px;
-  position: relative;
-  padding: 5px 10px;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
 }
 
-.notif-bell:hover {
-  color: #0ff;
-  transform: scale(1.2);
+.staff-panel .notif-bell:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.05);
 }
 
-.notif-count {
+.staff-panel .notif-count {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #0ff;
-  color: #000;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
+  top: -6px;
+  right: -6px;
+  background: #ff3d6a;
+  padding: 3px 7px;
+  border-radius: 14px;
+  font-size: 11px;
 }
 
-/* ================= Notification Dropdown ================= */
-.notif-dropdown {
+/* ------------------------------------------------ */
+/* NOTIFICATION DROPDOWN — NOW OPENS UPWARD         */
+/* ------------------------------------------------ */
+/* FIXED: Notification dropdown stays below the bell but ABOVE all components */
+.staff-panel .notif-dropdown {
   position: absolute;
   right: 0;
-  top: 35px;
-  background: rgba(20, 20, 40, 0.95);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  border-radius: 10px;
-  width: 300px;
-  max-height: 400px;
+  top: 45px; /* stays under the bell */
+
+  width: 270px;
+  max-height: 350px;
   overflow-y: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  z-index: 100;
-  padding: 10px 0;
+  padding: 12px;
+
+  background: rgba(255,255,255,0.20);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 16px;
+
+  /* NEW — always appear on top */
+  z-index: 5000;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+
+  animation: notifAppear 0.25s ease;
 }
 
-.scrollable-dropdown::-webkit-scrollbar {
-  width: 6px;
+@keyframes notifAppear {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.scrollable-dropdown::-webkit-scrollbar-thumb {
-  background: #0ff;
-  border-radius: 3px;
-}
 
-.scrollable-dropdown::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.notif-item {
-  padding: 8px 15px;
+.staff-panel .notif-item {
+  padding: 12px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  margin-bottom: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.22s;
 }
 
-.notif-item:hover {
-  background: rgba(0, 255, 255, 0.1);
+.staff-panel .notif-item:hover {
+  background: rgba(255,255,255,0.28);
 }
 
-.notif-top {
+.staff-panel .notif-empty {
+  text-align: center;
+  opacity: 0.8;
+}
+
+.staff-panel .notif-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.notif-name {
+.staff-panel .notif-name {
   font-weight: 600;
 }
 
-.notif-unread-dot {
-  background: #0ff;
-  color: #000;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 50%;
+.staff-panel .notif-unread-dot {
+  padding: 2px 6px;
+  background: #ff3d6a;
+  border-radius: 12px;
+  font-size: 11px;
 }
 
-.notif-msg {
-  font-size: 13px;
-  color: #aaa;
-  margin: 3px 0;
+.staff-panel .notif-msg {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.85;
 }
 
-.notif-time {
-  font-size: 10px;
-  color: #666;
+.staff-panel .notif-time {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.7;
   text-align: right;
 }
 
-.notif-empty {
-  text-align: center;
-  padding: 20px 0;
-  color: #666;
-}
-
-/* ================= Search Bar ================= */
-.search-bar {
+/* ------------------------------------------------ */
+/* SEARCH BAR                                       */
+/* ------------------------------------------------ */
+.staff-panel .search-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 15px;
+
+  padding: 14px;
+  margin-bottom: 18px;
+
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25);
 }
 
-.search-bar input,
-.search-bar select,
-.search-bar button {
-  padding: 8px 12px;
-  border-radius: 10px;
+.staff-panel .search-bar input,
+.staff-panel .search-bar select {
+  flex: 1 1 120px;
+  padding: 10px;
+
   border: none;
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  outline: none;
-  transition: all 0.2s ease;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.22);
+  color: #1f1616;
+  backdrop-filter: blur(8px);
 }
 
-.search-bar input:focus,
-.search-bar select:focus {
-  background: rgba(0, 255, 255, 0.1);
+/* --- STATUS FILTER DROPDOWN COLORS --- */
+.staff-panel select option[value="pending"] {
+  background: #ffdf73;
+  color: #333;
+}
+.staff-panel select option[value="confirmed"] {
+  background: #76ffb2;
+  color: #333;
+}
+staff-panel select option[value="done"] {
+  background: #a8ffea;
+  color: #333;
+}
+.staff-panel select option[value="cancelled"] {
+  background: #ff7a7a;
+  color: #333;
 }
 
-.search-bar button {
-  background: linear-gradient(135deg, #0ff, #06f);
-  color: #000;
-  font-weight: bold;
+.staff-panel .search-bar button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #68c4ff, #316bff);
+  color: white;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.22s;
 }
 
-.search-bar button:hover {
+.staff-panel .search-bar button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 10px #0ff;
 }
 
-/* ================= Appointments Table ================= */
-.appointments-table {
+/* ------------------------------------------------ */
+/* TABLE                                            */
+/* ------------------------------------------------ */
+.staff-panel .appointments-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(14px);
 }
 
-.appointments-table th,
-.appointments-table td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.staff-panel .appointments-table th,
+.staff-panel .appointments-table td {
+  padding: 12px;
 }
 
-.appointments-table th {
-  background: rgba(0, 255, 255, 0.05);
+.staff-panel .appointments-table th {
+  font-weight: 600;
+  background: rgba(255,255,255,0.28);
 }
 
-.status.pending { color: #0ff; }
-.status.confirmed { color: #0f0; }
-.status.done { color: #888; }
-.status.cancelled { color: #f00; }
+.staff-panel .appointments-table tr:nth-child(even) {
+  background: rgba(255,255,255,0.10);
+}
 
-/* ================= Action Buttons ================= */
-.actions-col {
+/* Colors for table statuses */
+.staff-panel .status.pending { color: #ffd966; font-weight: 600; }
+.staff-panel .status.confirmed { color: #76ff9f; font-weight: 600; }
+.staff-panel .status.done { color: #a8ffea; font-weight: 600; }
+.staff-panel .status.cancelled { color: #ff6d6d; font-weight: 600; }
+
+/* ------------------------------------------------ */
+/* ACTION BUTTONS                                   */
+/* ------------------------------------------------ */
+.staff-panel .actions-col {
   display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.action-btn {
-  padding: 6px 10px;
+.staff-panel .action-btn {
+  padding: 8px 12px;
+  font-size: 13px;
   border: none;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 10px;
+  color: white;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.25s;
 }
 
-.action-btn.view { background: rgba(255,255,255,0.05); color:#0ff; }
-.action-btn.confirm { background: linear-gradient(135deg, #0f0, #0c0); color:#000; }
-.action-btn.cancel { background: linear-gradient(135deg, #f00, #c00); color:#fff; }
-.action-btn.resched { background: linear-gradient(135deg, #0ff, #06f); color:#000; }
-.action-btn.done { background: rgba(255,255,255,0.05); color:#aaa; }
-.action-btn.message { background: linear-gradient(135deg, #0ff, #06f); color:#000; }
-
-.action-btn:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #0ff;
+.staff-panel .action-btn.view { background: #5cb4ff; }
+.staff-panel .action-btn.confirm { background: #43d790; }
+.staff-panel .action-btn.cancel { background: #ff4f4f; }
+.staff-panel .action-btn.resched { background: #b780ff; }
+.staff-panel .action-btn.done { background: #43d7c7; }
+.staff-panel .action-btn.message {
+  background: linear-gradient(135deg, #62f0e4, #37c6ff);
 }
 
-.action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.staff-panel .action-btn:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
 }
 
-/* ================= Modal ================= */
-.modal-overlay {
+/* -------------------------------------------------- */
+/* MODAL OVERLAY                                    */
+/* -------------------------------------------------- */
+.staff-panel .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 20, 0.85);
+
+  background: rgba(0, 0, 0, 0.45); /* subtle dark overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 6000;
+  padding: 15px;
+  overflow-y: auto;
 }
 
-.modal-card {
-  background: rgba(20, 20, 40, 0.95);
-  padding: 25px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* -------------------------------------------------- */
+/* MODAL CARD — CENTERED & MOBILE FRIENDLY           */
+/* -------------------------------------------------- */
+/* -------------------------------------------------- */
+/* VIEW MODAL — Compact, Elegant Design              */
+/* -------------------------------------------------- */
+.staff-panel .modal-card.wide {
+  max-width: 380px;             /* slightly smaller than default */
+  width: 95%;
+  padding: 22px 24px;           /* compact but comfortable */
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+  position: relative;
+  animation: modalAppear 0.25s ease;
 }
 
-.modal-card.wide { max-width: 600px; }
+/* Title */
+.staff-panel .modal-card.wide h3 {
+  font-size: 24px;              /* larger & elegant */
+  font-weight: 700;
+  color: #eaf3ff;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
 
-.modal-card input,
-.modal-card select {
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(255,255,255,0.05);
+/* Paragraph / Details */
+.staff-panel .modal-card.wide p {
+  font-size: 16px;              /* bigger */
+  color: #dce7ff;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+/* Close button */
+.staff-panel .modal-card.wide .close-btn {
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
   color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.staff-panel .modal-card.wide .close-btn:hover {
+  background: rgba(255,255,255,0.30);
+  transform: scale(1.05);
 }
 
-.modal-card input:focus,
-.modal-card select:focus {
-  background: rgba(0, 255, 255, 0.1);
-}
 
-.modal-actions {
+/* -------------------------------------------------- */
+/* MODAL ACTIONS COMPACT                              */
+/* -------------------------------------------------- */
+.staff-panel .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
 }
 
-.save-btn,
-.cancel-btn,
-.close-btn {
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* Save / Cancel Buttons Responsive */
+.staff-panel .save-btn,
+.staff-panel .cancel-btn {
+  flex: 1 1 45%; /* mobile friendly two buttons side by side */
+  padding: 10px 0;
 }
 
-.save-btn {
-  background: linear-gradient(135deg, #0ff, #06f);
-  color: #000;
+/* -------------------------------------------------- */
+/* TEXT / INPUT ADJUSTMENTS                            */
+/* -------------------------------------------------- */
+.staff-panel .modal-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
-.save-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #0ff;
+.staff-panel .modal-card p,
+.staff-panel .modal-card label {
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
-.cancel-btn,
-.close-btn {
-  background: rgba(255,255,255,0.05);
-  color: #fff;
+.staff-panel .modal-card input,
+.staff-panel .modal-card select {
+  font-size: 14px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
 }
 
-.cancel-btn:hover,
-.close-btn:hover {
-  background: rgba(0, 255, 255, 0.1);
-}
-
-/* ================= Mobile Responsiveness ================= */
-@media (max-width: 768px) {
-  .header { flex-direction: column; align-items: flex-start; gap: 15px; }
-  .notif-dropdown { width: 90%; right: 5%; }
-  .appointments-table th,
-  .appointments-table td { font-size: 12px; padding: 8px 6px; }
-  .search-bar { flex-direction: column; gap: 8px; }
-  .modal-card { width: 95%; }
-}
