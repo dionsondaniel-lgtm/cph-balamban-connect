@@ -172,3 +172,34 @@ form button:hover {
     font-size: 15px;
   }
 }
+
+/* --- GLOBAL Z-INDEX FIX FOR NOTIFICATION DROPDOWN --- */
+
+/* Make the header / top bar always above page content */
+header, 
+.navbar, 
+.topbar, 
+.notification-area {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+/* Make the dropdown the TRUE TOPMOST element */
+.notification-dropdown,
+.bell-dropdown,
+.dropdown-menu {
+  position: absolute !important;
+  z-index: 999999 !important;   /* max layer */
+  pointer-events: auto;
+}
+
+/* Lower all app content so it can never cover the dropdown */
+.container,
+.staff-panel,
+.appointments-wrapper,
+.card,
+.main-content,
+.page-wrapper {
+  position: relative !important;
+  z-index: 1 !important; 
+}

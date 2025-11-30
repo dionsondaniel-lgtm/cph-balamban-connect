@@ -39,16 +39,17 @@
 }
 
 /* -------------------------------------- */
-/* NOTIFICATION BELL                      */
+/* PATIENT NOTIFICATION BELL              */
 /* -------------------------------------- */
 .patient-panel .notif-bell-container {
   position: relative;
+  z-index: 9999; /* make sure it's above everything */
 }
 
 .patient-panel .notif-bell {
   font-size: 26px;
   cursor: pointer;
-  padding: 6px 10px;
+  padding: 8px 12px;
 
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
@@ -56,11 +57,19 @@
   border-radius: 12px;
 
   transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .patient-panel .notif-bell:hover {
   transform: scale(1.06);
   background: rgba(255,255,255,0.25);
+}
+
+.patient-panel .notif-bell i {
+  font-size: 26px;
+  color: #fff;
 }
 
 .patient-panel .notif-count {
@@ -76,14 +85,14 @@
 }
 
 /* -------------------------------------- */
-/* DROPDOWN                               */
+/* NOTIFICATION DROPDOWN                  */
 /* -------------------------------------- */
 .patient-panel .notif-dropdown {
-  position: absolute;
-  right: 0;
-  top: 45px;
-  width: 270px;
-  max-height: 350px;
+  position: fixed;      /* float above everything */
+  top: 70px;            /* adjust based on header height */
+  right: 20px;          /* align with bell */
+  width: 280px;
+  max-height: 400px;
 
   overflow-y: auto;
   padding: 12px;
@@ -95,6 +104,8 @@
 
   box-shadow: 0 8px 22px rgba(0,0,0,0.35);
   animation: pnFade 0.25s ease;
+
+  z-index: 9999;        /* top-most layer */
 }
 
 @keyframes pnFade {
@@ -149,6 +160,16 @@
   text-align: right;
   margin-top: 3px;
 }
+
+/* Optional smooth scrollbar */
+.patient-panel .scrollable-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.patient-panel .scrollable-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 6px;
+}
+
 
 /* -------------------------------------- */
 /* BUTTONS                                */

@@ -6,7 +6,7 @@ import Chat from "../components/Chat";
 
 export default function PatientPanel() {
   const location = useLocation();
-  const profile = location.state?.profile; // patient profile passed from router
+  const profile = location.state?.profile;
 
   const [appointments, setAppointments] = useState([]);
   const [staffList, setStaffList] = useState([]);
@@ -41,8 +41,7 @@ export default function PatientPanel() {
 
   useEffect(() => {
     const filtered = staffList.filter((s) =>
-      `${s.first_name} ${s.last_name} ${s.position}`.toLowerCase()
-        .includes(search.toLowerCase())
+      `${s.first_name} ${s.last_name} ${s.position}`.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredStaff(filtered);
   }, [search, staffList]);
@@ -68,44 +67,51 @@ export default function PatientPanel() {
     setLoading(false);
   }, [profile]);
 
-  // ---------------- Fetch Unread Messages ----------------
+  // ---------------- Fetch Notifications ----------------
   const fetchUnreadNotifications = useCallback(async () => {
     if (!profile) return;
 
     const { data, error } = await supabase
       .from("notifications")
       .select("*")
-      .eq("receiver_id", profile.id)
+      .or(`receiver_id.eq.${profile.id},sender_id.eq.${profile.id}`)
       .order("created_at", { ascending: false });
 
     if (error) return console.error(error);
 
-    // Group messages by sender_id
+    // Group by sender
     const grouped = {};
     data.forEach(msg => {
-      if (!grouped[msg.sender_id]) grouped[msg.sender_id] = [];
-      grouped[msg.sender_id].push(msg);
+      const senderKey = msg.sender_id === profile.id ? msg.receiver_id : msg.sender_id;
+      if (!grouped[senderKey]) grouped[senderKey] = [];
+      grouped[senderKey].push(msg);
     });
 
     const summaries = await Promise.all(
-      Object.keys(grouped).map(async (senderId) => {
-        const msgs = grouped[senderId];
+      Object.keys(grouped).map(async (key) => {
+        const msgs = grouped[key];
+        msgs.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
         const lastMessage = msgs[0];
-        const unread = msgs.filter(m => !m.read_status).length;
+        const unread = msgs.filter(m => !m.read_status && m.receiver_id === profile.id).length;
 
-        // fetch staff info
         const { data: staff } = await supabase
           .from("users")
           .select("id, first_name, last_name")
-          .eq("id", senderId)
+          .eq("id", key)
           .single();
+
+        const messageDate = new Date(lastMessage.created_at);
+        const now = new Date();
+        const dateLabel = messageDate.toDateString() === now.toDateString()
+          ? "Today"
+          : messageDate.toLocaleDateString([], { month: 'short', day: 'numeric' });
 
         return {
           ...staff,
           last_message: lastMessage.message,
           last_message_time: lastMessage.created_at,
           unread_count: unread,
-          sender_id: senderId
+          message_date_label: dateLabel
         };
       })
     );
@@ -114,7 +120,7 @@ export default function PatientPanel() {
     setUnreadCount(summaries.reduce((s, i) => s + i.unread_count, 0));
   }, [profile]);
 
-  // ---------------- Realtime Messages Listener ----------------
+  // ---------------- Realtime Listener ----------------
   useEffect(() => {
     fetchAppointments();
     fetchStaff();
@@ -139,7 +145,7 @@ export default function PatientPanel() {
     return () => supabase.removeChannel(channel);
   }, [fetchAppointments, fetchStaff, fetchUnreadNotifications, profile]);
 
-  // ---------------- Save appointment ----------------
+  // ---------------- Save Appointment ----------------
   const saveAppointment = async () => {
     if (!selectedStaff || !selectedDate)
       return alert("Please select staff and date.");
@@ -168,21 +174,15 @@ export default function PatientPanel() {
 
         {/* Notification Bell */}
         <div className="notif-bell-container">
-          <div
-            className="notif-bell"
-            onClick={() => setBellOpen(prev => !prev)}
-          >
-            🔔 {unreadCount > 0 && (
-              <span className="notif-count">{unreadCount}</span>
-            )}
+          <div className="notif-bell" onClick={() => setBellOpen(prev => !prev)}>
+            🔔
+            {unreadCount > 0 && <span className="notif-count">{unreadCount}</span>}
           </div>
 
           {bellOpen && (
             <div className="notif-dropdown scrollable-dropdown">
-              {unreadSummary.length === 0 && (
-                <div className="notif-empty">No messages</div>
-              )}
-
+              {unreadSummary.length === 0 && <div className="notif-empty">No messages</div>}
+              
               {unreadSummary.map(sender => {
                 const timeLabel = new Date(sender.last_message_time)
                   .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -201,18 +201,18 @@ export default function PatientPanel() {
                       <span className="notif-name">
                         {sender.first_name} {sender.last_name}
                       </span>
+                      <span className="notif-time">
+                        {sender.message_date_label} {timeLabel}
+                      </span>
                       {sender.unread_count > 0 && (
-                        <span className="notif-unread-dot">
-                          {sender.unread_count}
-                        </span>
+                        <span className="notif-unread-dot">{sender.unread_count}</span>
                       )}
                     </div>
                     <div className="notif-msg">
-                      {sender.last_message.length > 40
-                        ? sender.last_message.slice(0, 40) + "..."
+                      {sender.last_message.length > 50
+                        ? sender.last_message.slice(0, 50) + "..."
                         : sender.last_message}
                     </div>
-                    <div className="notif-time">{timeLabel}</div>
                   </div>
                 );
               })}
@@ -226,7 +226,6 @@ export default function PatientPanel() {
       </button>
 
       <h3>Your Appointments</h3>
-
       {appointments.length === 0 ? (
         <p>No appointments yet.</p>
       ) : (
@@ -242,13 +241,8 @@ export default function PatientPanel() {
           <tbody>
             {appointments.map(appt => (
               <tr key={appt.id}>
-                <td>
-                  {appt.staff?.first_name} {appt.staff?.last_name} (
-                  {appt.staff?.position})
-                </td>
-                <td>
-                  {new Date(appt.appointment_date).toLocaleString()}
-                </td>
+                <td>{appt.staff?.first_name} {appt.staff?.last_name} ({appt.staff?.position})</td>
+                <td>{new Date(appt.appointment_date).toLocaleString()}</td>
                 <td>{appt.status}</td>
                 <td>
                   <button
@@ -306,29 +300,25 @@ export default function PatientPanel() {
             />
 
             <div className="modal-actions">
-              <button className="save-btn" onClick={saveAppointment}>
-                Save
-              </button>
-              <button className="cancel-btn" onClick={() => setShowModal(false)}>
-                Close
-              </button>
+              <button className="save-btn" onClick={saveAppointment}>Save</button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>Close</button>
             </div>
           </div>
         </div>
       )}
 
-{/* Chat for Patient */}
-{chatOpen && chatStaff && profile && (
-  <Chat
-    profile={profile}      // patient user
-    patient={chatStaff}     // selected staff to chat with
-    onClose={() => {
-      setChatOpen(false);
-      setChatStaff(null);
-      fetchUnreadNotifications();
-    }}
-  />
-)}
+      {/* Chat */}
+      {chatOpen && chatStaff && profile && (
+        <Chat
+          profile={profile}
+          patient={chatStaff}
+          onClose={() => {
+            setChatOpen(false);
+            setChatStaff(null);
+            fetchUnreadNotifications();
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+// src/pages/StaffPanel.js
 import React, { useEffect, useState, useCallback } from "react";
 import { supabase } from "../supabaseClient";
 import { useLocation } from "react-router-dom";
@@ -28,49 +29,55 @@ export default function StaffPanel() {
 
   // ---------------- Notifications ----------------
   const fetchUnreadNotifications = useCallback(async () => {
-    if (!profile) return;
+  if (!profile) return;
 
-    const { data, error } = await supabase
-      .from("notifications")
-      .select("*")
-      .eq("receiver_id", profile.id)
-      .order("created_at", { ascending: true });
+  // Fetch all messages where the staff is sender or receiver
+  const { data: messages, error } = await supabase
+    .from("notifications")
+    .select("*")
+    .or(`receiver_id.eq.${profile.id},sender_id.eq.${profile.id}`)
+    .order("created_at", { ascending: true });
 
-    if (error) return console.error(error);
+  if (error) return console.error(error);
 
-    const grouped = {};
-    data.forEach((msg) => {
-      const sender = msg.sender_id;
-      if (!grouped[sender]) grouped[sender] = [];
-      grouped[sender].push(msg);
-    });
+  // Group messages by sender (or conversation partner)
+  const grouped = {};
+  messages.forEach((msg) => {
+    // Determine the conversation partner (other than staff)
+    const partnerId = msg.sender_id === profile.id ? msg.receiver_id : msg.sender_id;
+    if (!grouped[partnerId]) grouped[partnerId] = [];
+    grouped[partnerId].push(msg);
+  });
 
-    const summaries = await Promise.all(
-      Object.keys(grouped).map(async (senderId) => {
-        const messages = grouped[senderId];
-        const lastMessage = messages[messages.length - 1];
-        const unread = messages.filter((m) => !m.read_status).length;
+  const summaries = await Promise.all(
+    Object.keys(grouped).map(async (partnerId) => {
+      const convMessages = grouped[partnerId];
+      const lastMessage = convMessages[convMessages.length - 1]; // last message, could be staff or patient
+      const unread = convMessages.filter(m => !m.read_status && m.receiver_id === profile.id).length; // only unread for staff
 
-        const { data: user } = await supabase
-          .from("users")
-          .select("id, first_name, last_name")
-          .eq("id", senderId)
-          .single();
+      const { data: user } = await supabase
+        .from("users")
+        .select("id, first_name, last_name")
+        .eq("id", partnerId)
+        .single();
 
-        return {
-          id: user?.id || senderId,
-          first_name: user?.first_name || "Unknown",
-          last_name: user?.last_name || "",
-          last_message: lastMessage?.message || "",
-          last_message_time: lastMessage?.created_at || "",
-          unread_count: unread,
-        };
-      })
-    );
+      return {
+        id: user?.id || partnerId,
+        first_name: user?.first_name || "Unknown",
+        last_name: user?.last_name || "",
+        last_message: lastMessage?.message || "",
+        last_message_time: lastMessage?.created_at || "",
+        unread_count: unread,
+      };
+    })
+  );
 
-    setUnreadSummary(summaries);
-    setUnreadCount(summaries.reduce((sum, s) => sum + s.unread_count, 0));
-  }, [profile]);
+  // Sort ascending so the last conversation is at the bottom
+  summaries.sort((a, b) => new Date(a.last_message_time) - new Date(b.last_message_time));
+
+  setUnreadSummary(summaries);
+  setUnreadCount(summaries.reduce((sum, s) => sum + s.unread_count, 0));
+}, [profile]);
 
   useEffect(() => {
     fetchUnreadNotifications();
@@ -194,24 +201,22 @@ export default function StaffPanel() {
   };
 
   const openChat = async (patientSummary) => {
-  if (!patientSummary) return;
+    if (!patientSummary) return;
 
-  // If the summary already has id, first_name, last_name, use it directly
-  let patient = patientSummary;
+    let patient = patientSummary;
 
-  // But if patientSummary came from notifications and lacks full info, fetch it
-  if (!patientSummary.email) { // assuming 'email' indicates incomplete info
-    const { data: fullPatient, error } = await supabase
-      .from("users")
-      .select("id, first_name, last_name, email")
-      .eq("id", patientSummary.id)
-      .single();
-    if (error) return console.error("Failed to fetch patient", error);
-    patient = fullPatient;
-  }
+    if (!patientSummary.email) {
+      const { data: fullPatient, error } = await supabase
+        .from("users")
+        .select("id, first_name, last_name, email")
+        .eq("id", patientSummary.id)
+        .single();
+      if (error) return console.error("Failed to fetch patient", error);
+      patient = fullPatient;
+    }
 
-  setChatModal(patient);
-};
+    setChatModal(patient);
+  };
 
   if (!profile) return <p>No profile. Please login again.</p>;
   if (loading) return <p>Loading appointments...</p>;
@@ -233,7 +238,7 @@ export default function StaffPanel() {
               {unreadSummary.length === 0 && <div className="notif-empty">No messages</div>}
               {unreadSummary.map((sender) => {
                 const timeLabel = sender.last_message_time
-                  ? new Date(sender.last_message_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  ? new Date(sender.last_message_time).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
                   : "";
                 return (
                   <div
@@ -248,7 +253,7 @@ export default function StaffPanel() {
                       <span className="notif-name">{sender.first_name} {sender.last_name}</span>
                       {sender.unread_count > 0 && <span className="notif-unread-dot">{sender.unread_count}</span>}
                     </div>
-                    <div className="notif-msg">{sender.last_message.slice(0, 40)}{sender.last_message.length > 40 ? "..." : ""}</div>
+                    <div className="notif-msg">{sender.last_message.slice(0, 60)}{sender.last_message.length > 60 ? "..." : ""}</div>
                     <div className="notif-time">{timeLabel}</div>
                   </div>
                 );
@@ -318,7 +323,7 @@ export default function StaffPanel() {
         <div className="modal-overlay">
           <div className="modal-card">
             <h3>Reschedule Appointment</h3>
-            <input type="datetime-local" value={newDate} onChange={e => setNewDate(e.target.value)} />
+            <input type="datetime-local" value={newDate} onChange={e => setNewDate(e.target.value)} className="modal-input" />
             <div className="modal-actions">
               <button className="save-btn" onClick={saveReschedule}>Save</button>
               <button className="cancel-btn" onClick={()=>setRescheduleModal(null)}>Cancel</button>

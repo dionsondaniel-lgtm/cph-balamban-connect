@@ -53,7 +53,6 @@ export default function Chat({ profile, patient, onClose }) {
 
     setAllConversations(convos);
 
-    // Set first conversation as active if not already set
     if (!activePatient && convos.length > 0) {
       setActivePatient(convos[0].user);
     }
@@ -64,7 +63,6 @@ export default function Chat({ profile, patient, onClose }) {
     async (patientParam) => {
       if (!profile || !patientParam) return;
 
-      // Look for messages where either staff-patient combination exists
       const roomId1 = `room_staff${profile.id}_patient${patientParam.id}`;
       const roomId2 = `room_staff${patientParam.id}_patient${profile.id}`;
 
@@ -76,7 +74,6 @@ export default function Chat({ profile, patient, onClose }) {
 
       setChatMessages(data || []);
 
-      // Mark unread as read
       const unread = (data || []).filter(
         (msg) => msg.receiver_id === profile.id && !msg.read_status
       );
@@ -154,21 +151,21 @@ export default function Chat({ profile, patient, onClose }) {
   };
 
   const formatTime = (ts) => {
-  if (!ts) return "";
-  const date = new Date(ts);
-  const now = new Date();
+    if (!ts) return "";
+    const date = new Date(ts);
+    const now = new Date();
 
-  const isToday =
-    date.getDate() === now.getDate() &&
-    date.getMonth() === now.getMonth() &&
-    date.getFullYear() === now.getFullYear();
+    const isToday =
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear();
 
-  if (isToday) {
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  } else {
-    return date.toLocaleDateString() + " " + date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  }
-};
+    if (isToday) {
+      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    } else {
+      return date.toLocaleDateString() + " " + date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+  };
 
   if (!profile || !activePatient) return <p>Loading chat...</p>;
 
@@ -191,7 +188,7 @@ export default function Chat({ profile, patient, onClose }) {
                 <div className="avatar">{c.user.first_name[0]}</div>
                 <div className="sidebar-info">
                   <h4>{c.user.first_name} {c.user.last_name}</h4>
-                  <p>{c.last_message.slice(0, 25)}...</p>
+                  <p>{c.last_message.slice(0, 25)}{c.last_message.length > 25 ? "..." : ""}</p>
                 </div>
                 {c.unread_count > 0 && <span className="sidebar-unread">{c.unread_count}</span>}
               </div>
@@ -212,7 +209,7 @@ export default function Chat({ profile, patient, onClose }) {
               return (
                 <div key={msg.id || Math.random()} className={`bubble-row ${mine ? "right" : "left"}`}>
                   <div className={`bubble ${mine ? "mine" : "theirs"}`}>
-                    <p className="bubble-text">{msg.message}</p>
+                    <p className="bubble-text" style={{ whiteSpace: "pre-wrap" }}>{msg.message}</p>
                     <div className="bubble-time">
                       {formatTime(msg.created_at)}
                       {mine && <span className={`tick ${msg.read_status ? "read" : ""}`}>{msg.read_status ? "✓✓" : "✓"}</span>}
@@ -231,6 +228,12 @@ export default function Chat({ profile, patient, onClose }) {
               onChange={(e) => setNewChatMsg(e.target.value)}
               placeholder="Type a message..."
               rows={1}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  sendChatMessage();
+                }
+              }}
             />
             <button className="send-btn" onClick={sendChatMessage}>➤</button>
           </div>

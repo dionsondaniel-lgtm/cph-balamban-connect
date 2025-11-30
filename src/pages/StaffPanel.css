@@ -66,28 +66,22 @@
 }
 
 /* ------------------------------------------------ */
-/* NOTIFICATION DROPDOWN — NOW OPENS UPWARD         */
+/* NOTIFICATION DROPDOWN                            */
 /* ------------------------------------------------ */
-/* FIXED: Notification dropdown stays below the bell but ABOVE all components */
 .staff-panel .notif-dropdown {
   position: absolute;
   right: 0;
-  top: 45px; /* stays under the bell */
-
+  top: 45px;
   width: 270px;
   max-height: 350px;
   overflow-y: auto;
   padding: 12px;
-
   background: rgba(255,255,255,0.20);
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,0.35);
   border-radius: 16px;
-
-  /* NEW — always appear on top */
   z-index: 5000;
   box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-
   animation: notifAppear 0.25s ease;
 }
 
@@ -95,7 +89,6 @@
   from { opacity: 0; transform: translateY(-5px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 
 .staff-panel .notif-item {
   padding: 12px;
@@ -151,10 +144,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-
   padding: 14px;
   margin-bottom: 18px;
-
   background: rgba(255,255,255,0.12);
   border-radius: 16px;
   backdrop-filter: blur(12px);
@@ -165,32 +156,17 @@
 .staff-panel .search-bar select {
   flex: 1 1 120px;
   padding: 10px;
-
   border: none;
   border-radius: 10px;
-
   background: rgba(255,255,255,0.22);
   color: #1f1616;
   backdrop-filter: blur(8px);
 }
 
-/* --- STATUS FILTER DROPDOWN COLORS --- */
-.staff-panel select option[value="pending"] {
-  background: #ffdf73;
-  color: #333;
-}
-.staff-panel select option[value="confirmed"] {
-  background: #76ffb2;
-  color: #333;
-}
-staff-panel select option[value="done"] {
-  background: #a8ffea;
-  color: #333;
-}
-.staff-panel select option[value="cancelled"] {
-  background: #ff7a7a;
-  color: #333;
-}
+.staff-panel select option[value="pending"] { background: #ffdf73; color: #333; }
+.staff-panel select option[value="confirmed"] { background: #76ffb2; color: #333; }
+.staff-panel select option[value="done"] { background: #a8ffea; color: #333; }
+.staff-panel select option[value="cancelled"] { background: #ff7a7a; color: #333; }
 
 .staff-panel .search-bar button {
   padding: 10px 14px;
@@ -215,7 +191,6 @@ staff-panel select option[value="done"] {
   border-collapse: collapse;
   border-radius: 16px;
   overflow: hidden;
-
   background: rgba(255,255,255,0.16);
   backdrop-filter: blur(14px);
 }
@@ -234,7 +209,6 @@ staff-panel select option[value="done"] {
   background: rgba(255,255,255,0.10);
 }
 
-/* Colors for table statuses */
 .staff-panel .status.pending { color: #ffd966; font-weight: 600; }
 .staff-panel .status.confirmed { color: #76ff9f; font-weight: 600; }
 .staff-panel .status.done { color: #a8ffea; font-weight: 600; }
@@ -264,26 +238,23 @@ staff-panel select option[value="done"] {
 .staff-panel .action-btn.cancel { background: #ff4f4f; }
 .staff-panel .action-btn.resched { background: #b780ff; }
 .staff-panel .action-btn.done { background: #43d7c7; }
-.staff-panel .action-btn.message {
-  background: linear-gradient(135deg, #62f0e4, #37c6ff);
-}
+.staff-panel .action-btn.message { background: linear-gradient(135deg, #62f0e4, #37c6ff); }
 
 .staff-panel .action-btn:hover {
   opacity: 0.8;
   transform: translateY(-2px);
 }
 
-/* -------------------------------------------------- */
+/* ------------------------------------------------ */
 /* MODAL OVERLAY                                    */
-/* -------------------------------------------------- */
+/* ------------------------------------------------ */
 .staff-panel .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
-  background: rgba(0, 0, 0, 0.45); /* subtle dark overlay */
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,16 +263,13 @@ staff-panel select option[value="done"] {
   overflow-y: auto;
 }
 
-/* -------------------------------------------------- */
-/* MODAL CARD — CENTERED & MOBILE FRIENDLY           */
-/* -------------------------------------------------- */
-/* -------------------------------------------------- */
-/* VIEW MODAL — Compact, Elegant Design              */
-/* -------------------------------------------------- */
-.staff-panel .modal-card.wide {
-  max-width: 380px;             /* slightly smaller than default */
+/* ------------------------------------------------ */
+/* MODAL CARD — CENTERED & MOBILE FRIENDLY         */
+/* ------------------------------------------------ */
+.staff-panel .modal-card {
+  max-width: 400px;
   width: 95%;
-  padding: 22px 24px;           /* compact but comfortable */
+  padding: 20px 22px;
   border-radius: 20px;
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(18px);
@@ -310,68 +278,15 @@ staff-panel select option[value="done"] {
   animation: modalAppear 0.25s ease;
 }
 
-/* Title */
-.staff-panel .modal-card.wide h3 {
-  font-size: 24px;              /* larger & elegant */
-  font-weight: 700;
-  color: #eaf3ff;
-  margin-bottom: 12px;
-  text-align: center;
-  letter-spacing: 0.3px;
+@keyframes modalAppear {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Paragraph / Details */
-.staff-panel .modal-card.wide p {
-  font-size: 16px;              /* bigger */
-  color: #dce7ff;
-  margin: 6px 0;
-  line-height: 1.4;
-}
-
-/* Close button */
-.staff-panel .modal-card.wide .close-btn {
-  top: 12px;
-  right: 12px;
-  width: 36px;
-  height: 36px;
-  font-size: 18px;
-  color: #fff;
-  background: rgba(255,255,255,0.18);
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.staff-panel .modal-card.wide .close-btn:hover {
-  background: rgba(255,255,255,0.30);
-  transform: scale(1.05);
-}
-
-
-/* -------------------------------------------------- */
-/* MODAL ACTIONS COMPACT                              */
-/* -------------------------------------------------- */
-.staff-panel .modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-
-/* Save / Cancel Buttons Responsive */
-.staff-panel .save-btn,
-.staff-panel .cancel-btn {
-  flex: 1 1 45%; /* mobile friendly two buttons side by side */
-  padding: 10px 0;
-}
-
-/* -------------------------------------------------- */
-/* TEXT / INPUT ADJUSTMENTS                            */
-/* -------------------------------------------------- */
 .staff-panel .modal-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .staff-panel .modal-card p,
@@ -385,5 +300,51 @@ staff-panel select option[value="done"] {
   font-size: 14px;
   padding: 8px 12px;
   margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  background: rgba(255,255,255,0.15);
+  color: #111;
 }
 
+/* MODAL ACTIONS */
+.staff-panel .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.staff-panel .save-btn,
+.staff-panel .cancel-btn {
+  flex: 1 1 45%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.staff-panel .save-btn { background: #43d790; color: #fff; }
+.staff-panel .cancel-btn { background: #ff4f4f; color: #fff; }
+
+/* MODAL CLOSE BUTTON */
+.staff-panel .modal-card .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.staff-panel .modal-card .close-btn:hover {
+  background: rgba(255,255,255,0.30);
+  transform: scale(1.05);
+}
